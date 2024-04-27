@@ -7,12 +7,12 @@ spec:
   selector:
     matchLabels:
       app: tasks-app
-      tier: backend
+      tier: tasks-backend
   template:
     metadata:
       labels:
         app: tasks-app
-        tier: backend
+        tier: tasks-backend
     spec:
       containers:
         - name: task-node
@@ -22,10 +22,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: backend
+  name: tasks-service
 spec:
   selector:
     app: tasks-app
+    tier: tasks-backend
   ports:
     - protocol: "TCP"
       port: 8080
