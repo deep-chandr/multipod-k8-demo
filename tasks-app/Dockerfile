@@ -18,3 +18,8 @@ COPY . .
 
 CMD ["sh", "-c", "PORT=8080 node ./bin/www"]
 
+
+# Push to remote
+# docker tag  <my_image>:<version> <remote_repository>/<my_image>:<version>
+# docker push <remote_repository>/<my_image>:<version>
+

@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tasks-app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tasks-app
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: tasks-app
+        tier: backend
+    spec:
+      containers:
+        - name: task-node
+          image: deepchandr/multipod-k8-demo:v3
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+spec:
+  selector:
+    app: tasks-app
+  ports:
+    - protocol: "TCP"
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer
