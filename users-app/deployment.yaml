@@ -16,7 +16,15 @@ spec:
     spec:
       containers:
         - name: users-node
-          image: deepchandr/multipod-k8-demo:usersv1
+          image: deepchandr/multipod-k8-demo:userv5
+          env:
+            # - name: auth_host_url
+            #   valueFrom:
+            #     configMapKeyRef:
+            #       name: data-store-env
+            #       key: auth_host_url
+            - name: auth_host_url
+              value: "auth-service.default"
 
 ---
 apiVersion: v1

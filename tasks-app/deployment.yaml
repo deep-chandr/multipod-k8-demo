@@ -16,7 +16,15 @@ spec:
     spec:
       containers:
         - name: task-node
-          image: deepchandr/multipod-k8-demo:v3
+          image: deepchandr/multipod-k8-demo:tasksv5
+          env:
+            # - name: auth_host_url
+            #   valueFrom:
+            #     configMapKeyRef:
+            #       name: data-store-env
+            #       key: auth_host_url
+            - name: auth_host_url
+              value: "auth-service.default"
 
 ---
 apiVersion: v1

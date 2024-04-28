@@ -1,19 +1,36 @@
 var express = require("express");
 var router = express.Router();
+var axios = require("axios");
+
+const AUTH_HOST = process.env.auth_host_url;
+const AUTH_HOST_URL = `http://${AUTH_HOST}`;
 
 const myUsers = [{ username: "test", password: "test" }];
 
-/* GET users listing. */
-router.get("/", function (req, res, next) {
-  res.json({ users: myUsers });
+router.get("/", async function (req, res, next) {
+  try {
+    const response = await axios.get(`${AUTH_HOST_URL}/auth/`);
+    return res.json(response.data);
+  } catch (err) {
+    console.log("err: ", err);
+    next(err);
+  }
 });
 
-router.post("/", function (req, res, next) {
-  // Save locally
-  // than save it in auth service
+router.post("/", async function (req, res, next) {
   const { username, password } = req.body;
   myUsers.push({ username, password });
-  res.json({ username, password });
+
+  try {
+    const response = axios.post(`${AUTH_HOST_URL}/auth/`, {
+      username,
+      password,
+    });
+    return res.json(response.data);
+  } catch (err) {
+    console.log("err: ", err);
+    next(err);
+  }
 });
 
 module.exports = router;
